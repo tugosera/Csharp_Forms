@@ -12,12 +12,14 @@ namespace Csharp_Forms
 {
     public partial class Form1 : Form
     {
-        List <string> elemendid = new List<string> {"nupp", "silt", "pilt", "märkeruut" };
+        List <string> elemendid = new List<string> {"nupp", "silt", "pilt", "märkeruut", "radionupp", "tekstikast" };
         TreeView tree;
         Button btn;
         Label lbl;
         PictureBox pBox;
         CheckBox chk1, chk2;
+        RadioButton rbtn1, rbtn2, rbtn3;
+        TextBox txt;
 
         public Form1()
         {
@@ -129,9 +131,55 @@ namespace Csharp_Forms
                 chk2.BackgroundImageLayout = ImageLayout.Zoom;
                 chk2.Size = new Size(100, 100);
                 chk2.Location = new Point(150, btn.Height + lbl.Height + pBox.Height +chk1.Height  );
+                chk2.CheckedChanged += new EventHandler(Chk_CheckedChanged);
 
                 Controls.Add(chk1);
                 Controls.Add(chk2);
+            }
+            else if (e.Node.Text == "radionupp")
+            {
+                rbtn1 = new RadioButton();
+                rbtn1.Checked = false;
+                rbtn1.Text = "Black theme";
+                rbtn1.Location = new Point(300, 50);
+                rbtn1.CheckedChanged += new EventHandler(Btn_CheckedChanged);
+
+                rbtn2 = new RadioButton();
+                rbtn2.Checked = false;
+                rbtn2.Text = "Red theme";
+                rbtn2.Location = new Point(300, 100);
+                rbtn2.CheckedChanged += new EventHandler(Btn_CheckedChanged);
+
+                Controls.Add(rbtn1);
+                Controls.Add(rbtn2);
+
+                
+            }
+            else if (e.Node.Text == "tekstikast")
+            {
+                txt = new TextBox();
+                txt.Location = new Point(300, 200);
+                txt.Font = new Font("Arial", 28);
+                txt.Width = 200;
+                txt.TextChanged += Txt_TextChanged;
+                Controls.Add(txt);
+            }
+        }
+
+        private void Txt_TextChanged(object sender, EventArgs e)
+        {
+            lbl.Text = txt.Text;
+        }
+
+        private void Btn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtn1.Checked)
+            {
+                BackColor = Color.Black;
+            }
+            else if (rbtn2.Checked)
+            {
+                BackColor= Color.Red;
             }
         }
 
