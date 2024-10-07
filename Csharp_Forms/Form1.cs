@@ -12,7 +12,8 @@ namespace Csharp_Forms
 {
     public partial class Form1 : Form
     {
-        List <string> elemendid = new List<string> {"nupp", "silt", "pilt", "märkeruut", "radionupp", "tekstikast" };
+        List <string> elemendid = new List<string> {"nupp", "silt", "pilt", "märkeruut", "radionupp", "tekstikast","Loetelu", "Tabel", "Dialoogi aknad" };
+        List<string> rbtn_list = new List<string> { "esimene", "teine", "kolmas" };
         TreeView tree;
         Button btn;
         Label lbl;
@@ -20,6 +21,9 @@ namespace Csharp_Forms
         CheckBox chk1, chk2;
         RadioButton rbtn1, rbtn2, rbtn3;
         TextBox txt;
+        ListBox lb;
+        DataSet ds;
+        DataGridView dg;
 
         public Form1()
         {
@@ -118,11 +122,11 @@ namespace Csharp_Forms
             }
             else if (e.Node.Text == "märkeruut")
             {
-                chk1=new CheckBox();
+                chk1 = new CheckBox();
                 chk1.Checked = false;
-                chk1.Text= e.Node.Text;
-                chk1.Size = new Size(chk1.Text.Length*10, chk1.Size.Height*2);
-                chk1.Location = new Point(150,btn.Height + lbl.Height + pBox.Height );
+                chk1.Text = e.Node.Text;
+                chk1.Size = new Size(chk1.Text.Length * 10, chk1.Size.Height * 2);
+                chk1.Location = new Point(150, btn.Height + lbl.Height + pBox.Height);
                 chk1.CheckedChanged += new EventHandler(Chk_CheckedChanged);
 
                 chk2 = new CheckBox();
@@ -130,7 +134,7 @@ namespace Csharp_Forms
                 chk2.BackgroundImage = Image.FromFile(@"..\..\sf.png");
                 chk2.BackgroundImageLayout = ImageLayout.Zoom;
                 chk2.Size = new Size(100, 100);
-                chk2.Location = new Point(150, btn.Height + lbl.Height + pBox.Height +chk1.Height  );
+                chk2.Location = new Point(150, btn.Height + lbl.Height + pBox.Height + chk1.Height);
                 chk2.CheckedChanged += new EventHandler(Chk_CheckedChanged);
 
                 Controls.Add(chk1);
@@ -153,7 +157,7 @@ namespace Csharp_Forms
                 Controls.Add(rbtn1);
                 Controls.Add(rbtn2);
 
-                
+
             }
             else if (e.Node.Text == "tekstikast")
             {
@@ -163,6 +167,61 @@ namespace Csharp_Forms
                 txt.Width = 200;
                 txt.TextChanged += Txt_TextChanged;
                 Controls.Add(txt);
+            }
+            else if (e.Node.Text == "Loetelu")
+            {
+                lb = new ListBox();
+                foreach (string item in rbtn_list)
+                {
+                    lb.Items.Add(item);
+                }
+                lb.Location = new Point(300, 300);
+                lb.SelectedIndexChanged += lb_SelectedIndexChanged;
+                Controls.Add(lb);
+            }
+            else if (e.Node.Text == "Tabel")
+            {
+                    ds= new DataSet("XML fail");
+                ds.ReadXml(@"..\..\menu.xml");
+                dg=new DataGridView();
+                dg.Location = new Point(450, 0);
+                dg.DataSource = ds;
+                dg.DataMember = "menu";
+                dg.RowHeaderMouseClick += Dg_RowHeaderMouseClick;
+                Controls.Add(dg);
+            }
+            else if (e.Node.Text == "Dialoogi aknad")
+            {
+                MessageBox.Show("Dialoog", "See on lihtne akken");
+                var vastus = MessageBox.Show("Sissestame andmed", "Kas tahad InputBoxi kasutada?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(vastus==DialogResult.Yes)
+                {
+                    string text = Interaction.InputBox("Sisesta midagi siia", "andmete sisestamine");
+                    Random random = new Random();
+                    DataRow dr = ds.Tables["food"].NewRow();
+                    dr["name"] = text;
+                    dr["price"] = "$"+(random.NextSingle()*10).ToString();
+                    dr["describtion"] = "Väga maitsev ";
+                    dr["calories"] = random.Next(10, 1000);
+
+                    MessageBox.Show("Oli sisestatud: "+ text);
+                }
+            }
+        }
+
+        private void Dg_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            txt.Text = dg.Rows[e.RowIndex].Cells[0].Value.ToString() +" hind "+ dg.Rows
+            [e.RowIndex].Cells[1].Value.ToString();
+        }
+
+        private void lb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (lb.SelectedIndex)
+            {
+                case 0:tree.BackColor = Color.Chocolate; break;
+                case 1:tree.ForeColor = Color.IndianRed; break;
+                case 2:tree.BackColor = Color.Lavender; break;
             }
         }
 

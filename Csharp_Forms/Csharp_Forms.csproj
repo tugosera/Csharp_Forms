@@ -79,6 +79,7 @@
   <ItemGroup>
     <Content Include="bara.png" />
     <Content Include="kaneki.jpg" />
+    <Content Include="menu.xml" />
     <Content Include="sf.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
