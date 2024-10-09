@@ -12,10 +12,10 @@ namespace Csharp_Forms
 {
     public partial class Form1 : Form
     {
-        List <string> elemendid = new List<string> {"nupp", "silt", "pilt", "märkeruut", "radionupp", "tekstikast","Loetelu", "Tabel", "Dialoogi aknad" };
+        List <string> elemendid = new List<string> {"nupp", "silt", "pilt", "märkeruut", "radionupp", "tekstikast","Loetelu", "Tabel", "Dialoogi aknad", "TeineVorm", "KolmasVorm", "NeljasVorm" };
         List<string> rbtn_list = new List<string> { "esimene", "teine", "kolmas" };
         TreeView tree;
-        Button btn;
+        Button btn, btn1, btn2, btn3;
         Label lbl;
         PictureBox pBox;
         CheckBox chk1, chk2;
@@ -103,9 +103,7 @@ namespace Csharp_Forms
                 btn.BackColor = Color.White;
             }
             
-            
         }
-
         private void Tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Text == "nupp")
@@ -181,7 +179,7 @@ namespace Csharp_Forms
             }
             else if (e.Node.Text == "Tabel")
             {
-                    ds= new DataSet("XML fail");
+                ds= new DataSet("XML fail");
                 ds.ReadXml(@"..\..\menu.xml");
                 dg=new DataGridView();
                 dg.Location = new Point(450, 0);
@@ -192,21 +190,72 @@ namespace Csharp_Forms
             }
             else if (e.Node.Text == "Dialoogi aknad")
             {
-                MessageBox.Show("Dialoog", "See on lihtne akken");
-                var vastus = MessageBox.Show("Sissestame andmed", "Kas tahad InputBoxi kasutada?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(vastus==DialogResult.Yes)
-                {
-                    string text = Interaction.InputBox("Sisesta midagi siia", "andmete sisestamine");
-                    Random random = new Random();
-                    DataRow dr = ds.Tables["food"].NewRow();
-                    dr["name"] = text;
-                    dr["price"] = "$"+(random.NextSingle()*10).ToString();
-                    dr["describtion"] = "Väga maitsev ";
-                    dr["calories"] = random.Next(10, 1000);
+                //MessageBox.Show("Dialoog", "See on lihtne akken");
+                //var vastus = MessageBox.Show("Sissestame andmed", "Kas tahad InputBoxi kasutada?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //if(vastus==DialogResult.Yes)
+                //{
+                //    string text = Interaction.InputBox("Sisesta midagi siia", "andmete sisestamine");
+                //    Random random = new Random();
+                //    DataRow dr = ds.Tables["food"].NewRow();
+                //    dr["name"] = text;
+                //    dr["price"] = "$"+(random.NextSingle()*10).ToString();
+                //    dr["describtion"] = "Väga maitsev ";
+                //    dr["calories"] = random.Next(10, 1000);
 
-                    MessageBox.Show("Oli sisestatud: "+ text);
-                }
+                //    MessageBox.Show("Oli sisestatud: "+ text);
+                //}
             }
+            else if(e.Node.Text == "TeineVorm")
+            { 
+                btn1 = new Button();
+                btn1.Text = "Teine vorm";
+                btn1.Height = 50;
+                btn1.Width = 70;
+                btn1.BackColor = Color.LightGreen;
+                btn1.Location = new Point(500, 50);
+                btn1.Click += Btn1_Click;
+                Controls.Add(btn1);
+            }
+            else if (e.Node.Text == "KolmasVorm")
+            {
+                btn2 = new Button();
+                btn2.Text = "Kolmas vorm";
+                btn2.Height = 50;
+                btn2.Width = 70;
+                btn2.BackColor = Color.LightBlue;
+                btn2.Location = new Point(500, 150);
+                btn2.Click += Btn2_Click;
+                Controls.Add(btn2);
+            }
+            else if (e.Node.Text == "NeljasVorm")
+            {
+                btn3 = new Button();
+                btn3.Text = "Neljas vorm";
+                btn3.Height = 50;
+                btn3.Width = 70;
+                btn3.BackColor = Color.LemonChiffon;
+                btn3.Location = new Point(500, 250);
+                btn3.Click += Btn3_Click;
+                Controls.Add(btn3);
+            }
+        }
+
+        private void Btn3_Click(object sender, EventArgs e)
+        {
+            NeljasVorm neljasVorm = new NeljasVorm(500, 500);
+            neljasVorm.Show();
+        }
+
+        private void Btn2_Click(object sender, EventArgs e)
+        {
+            KolmasVorm kolmasVorm = new KolmasVorm(500, 500);
+            kolmasVorm.Show();
+        }
+
+        private void Btn1_Click(object sender, EventArgs e)
+        {
+            TeineVorm teineVorm = new TeineVorm(500, 500);
+            teineVorm.Show();
         }
 
         private void Dg_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
