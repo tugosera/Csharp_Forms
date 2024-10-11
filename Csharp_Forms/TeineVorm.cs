@@ -94,7 +94,7 @@ namespace Csharp_Forms
         private void Btn3_Click(object sender, EventArgs e)
         {
             t++;
-            if (t == 8)
+            if (t == 9)
             { t = 1; }
             else if (t == 1)
             { this.BackColor = Color.Gray;}
@@ -110,6 +110,8 @@ namespace Csharp_Forms
             { this.BackColor = Color.Red; }
             else if (t == 7)
             { this.BackColor = Color.Purple; }
+            else if (t == 8)
+            { this.BackColor = Color.White; }
 
 
         }

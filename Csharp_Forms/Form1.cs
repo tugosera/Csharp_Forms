@@ -248,7 +248,7 @@ namespace Csharp_Forms
 
         private void Btn2_Click(object sender, EventArgs e)
         {
-            KolmasVorm kolmasVorm = new KolmasVorm(500, 500);
+            KolmasVorm kolmasVorm = new KolmasVorm(600, 600);
             kolmasVorm.Show();
         }
 
