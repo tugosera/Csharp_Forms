@@ -283,6 +283,7 @@ namespace Csharp_Forms
         {
             lbll.Text = "" + k;
             k--;
+            
         }
     }
 }
