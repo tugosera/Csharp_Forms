@@ -277,6 +277,7 @@ namespace Csharp_Forms
                 Controls.Remove(lbl);
             }
 
+
         }
         Label lblprav, lbllev;
         public void Timer_Tick(object sender, EventArgs e)
