@@ -78,11 +78,11 @@ namespace Csharp_Forms
         int tt = 0;
         private void Btn5_Click(object sender, EventArgs e)
         {
-            string[] pildid = { "sf.png", "kaneki.jpg", "bara.png" };
+            string[] pildid = { "sf.png", "kaneki.jpg", "bara.png", "grom.jpg" };
             string fail = pildid[tt];
             pb1.Image = Image.FromFile(@"..\..\" + fail);
             tt++;
-            if (tt == 3) { tt = 0; }
+            if (tt == 4) { tt = 0; }
         }
 
         private void Btn4_Click(object sender, EventArgs e)

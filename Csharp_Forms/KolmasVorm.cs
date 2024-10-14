@@ -1,23 +1,27 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Timers;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Csharp_Forms
 {
     public partial class KolmasVorm : Form
     {
 
-        Label lbl, plusLeftLabel, plusRightLabel, plus, ravno, minusLeftLabel, minusRightLabel, minus, ravno2, LeftLabel3, RightLabel3, mno, ravno3, LeftLabel4, RightLabel4, dl, ravno4;
-        TextBox txt;
+        Label lbl, plusLeftLabel, plusRightLabel, plus, ravno, minusLeftLabel, minusRightLabel, minus, ravno2, LeftLabel3, RightLabel3, mno, ravno3, LeftLabel4, RightLabel4, dl, ravno4, lbll;
         NumericUpDown num, num2, num3, num4;
         Button start;
-        
+        Random random = new Random();
+        Timer timer;
+
 
         public KolmasVorm(int w, int h)
         {
@@ -103,11 +107,12 @@ namespace Csharp_Forms
             lbl.Size = new Size(150, 50);
             lbl.Location = new Point(250, 0);
 
-            txt = new TextBox();
-            txt.Location = new Point(400, 0);
-            txt.Font = new Font("Arial", 24);
-            txt.Width = 150;
-            
+            lbll = new Label();
+            lbll.Location = new Point(400, 0);
+            lbll.Font = new Font("Arial", 24);
+            lbll.Size = new Size(150,50);
+            lbll.BorderStyle = BorderStyle.FixedSingle;
+
             num = new NumericUpDown();
             num.Location = new Point(450, 100);
             num.Size = new Size(100, 300);
@@ -129,6 +134,7 @@ namespace Csharp_Forms
             start.Width = 70;
             start.BackColor = Color.LightGreen;
             start.Location = new Point(250, 510);
+            start.Click += start_Click;
 
             LeftLabel4 = new Label();
             LeftLabel4.Text = "?";
@@ -186,8 +192,97 @@ namespace Csharp_Forms
 
             Controls.Add(start);
             Controls.Add(num);
-            Controls.Add(txt);
+            Controls.Add(lbll);
             Controls.Add(lbl);
+        }
+        int k = 60;
+        public void start_Click(object sender, EventArgs e)
+        {
+
+
+            int randomInt = random.Next(0, 101);
+            plusLeftLabel.Text = "" + randomInt;
+            int randomInt2 = random.Next(0, 101);
+            plusRightLabel.Text = "" + randomInt2;
+            int plusOtvet = randomInt + randomInt2;
+
+
+            int randomInt3 = random.Next(0, 101);
+            int randomInt4 = random.Next(0, 101);
+
+            while (randomInt3 < randomInt4)
+            {
+                randomInt3 = random.Next(0, 101);
+                randomInt4 = random.Next(0, 101);
+            }
+            minusLeftLabel.Text = "" + randomInt3;
+            minusRightLabel.Text = "" + randomInt4;
+            int minusOtvet = randomInt3 + randomInt4;
+
+
+            int randomInt5 = random.Next(0, 50);
+            LeftLabel3.Text = "" + randomInt5;
+            int randomInt6 = random.Next(0, 15);
+            RightLabel3.Text = "" + randomInt6;
+            int xOtvet = randomInt5 + randomInt6;
+
+
+
+            int randomInt7 = random.Next(1, 101);
+            int randomInt8 = random.Next(1, 101);
+
+            while (randomInt7 % randomInt8 != 0)
+            {
+                randomInt7 = random.Next(1, 101);
+                randomInt8 = random.Next(1, 101);
+            }
+
+            LeftLabel4.Text = "" + randomInt7;
+            RightLabel4.Text = "" + randomInt8;
+            int dOtvet = randomInt7 + randomInt8;
+
+            Timer timer = new Timer();
+            timer.Interval = 1000;
+            timer.Start();
+            timer.Tick += Timer_Tick;
+
+            if (k == 0)
+            {
+                Controls.Remove(LeftLabel4);
+                Controls.Remove(RightLabel4);
+                Controls.Remove(num4);
+                Controls.Remove(ravno4);
+                Controls.Remove(dl);
+
+                Controls.Remove(LeftLabel3);
+                Controls.Remove(RightLabel3);
+                Controls.Remove(num3);
+                Controls.Remove(ravno3);
+                Controls.Remove(mno);
+
+                Controls.Remove(minusLeftLabel);
+                Controls.Remove(minusRightLabel);
+                Controls.Remove(minus);
+                Controls.Remove(ravno2);
+                Controls.Remove(num2);
+
+                Controls.Remove(plus);
+                Controls.Remove(ravno);
+                Controls.Remove(plusRightLabel);
+                Controls.Add(plusLeftLabel);
+
+                Controls.Remove(start);
+                Controls.Remove(num);
+                Controls.Remove(lbll);
+                Controls.Remove(lbl);
+            }
+
+        }
+        Label lblprav, lbllev;
+        public void Timer_Tick(object sender, EventArgs e)
+        {
+            lbll.Text = "" + k;
+            k--;
         }
     }
 }

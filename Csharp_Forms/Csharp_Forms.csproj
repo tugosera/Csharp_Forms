@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bara.png" />
+    <Content Include="grom.jpg" />
     <Content Include="kaneki.jpg" />
     <Content Include="menu.xml" />
     <Content Include="sf.png" />
