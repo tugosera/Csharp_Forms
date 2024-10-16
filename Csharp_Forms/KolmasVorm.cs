@@ -128,6 +128,11 @@ namespace Csharp_Forms
             num3.Size = new Size(100, 300);
             num3.Font = new Font("Arial", 20);
 
+            num4 = new NumericUpDown();
+            num4.Location = new Point(450, 400);
+            num4.Size = new Size(100, 300);
+            num4.Font = new Font("Arial", 20);
+
             start = new Button();
             start.Text = "Start";
             start.Height = 30;
@@ -160,10 +165,7 @@ namespace Csharp_Forms
             ravno4.Size = new Size(80, 80);
             ravno4.Location = new Point(350, 400);
 
-            num4 = new NumericUpDown();
-            num4.Location = new Point(450, 400);
-            num4.Size = new Size(100, 300);
-            num4.Font = new Font("Arial", 20);
+           
 
 
 
@@ -196,6 +198,7 @@ namespace Csharp_Forms
             Controls.Add(lbl);
         }
         int k = 60;
+        int plusOtvet, minusOtvet, xOtvet, dOtvet;
         public void start_Click(object sender, EventArgs e)
         {
 
@@ -204,7 +207,7 @@ namespace Csharp_Forms
             plusLeftLabel.Text = "" + randomInt;
             int randomInt2 = random.Next(0, 101);
             plusRightLabel.Text = "" + randomInt2;
-            int plusOtvet = randomInt + randomInt2;
+            plusOtvet = randomInt + randomInt2;
 
 
             int randomInt3 = random.Next(0, 101);
@@ -217,14 +220,14 @@ namespace Csharp_Forms
             }
             minusLeftLabel.Text = "" + randomInt3;
             minusRightLabel.Text = "" + randomInt4;
-            int minusOtvet = randomInt3 + randomInt4;
+            minusOtvet = randomInt3 - randomInt4;
 
 
             int randomInt5 = random.Next(0, 50);
             LeftLabel3.Text = "" + randomInt5;
             int randomInt6 = random.Next(0, 15);
             RightLabel3.Text = "" + randomInt6;
-            int xOtvet = randomInt5 + randomInt6;
+            xOtvet = randomInt5 * randomInt6;
 
 
 
@@ -239,52 +242,88 @@ namespace Csharp_Forms
 
             LeftLabel4.Text = "" + randomInt7;
             RightLabel4.Text = "" + randomInt8;
-            int dOtvet = randomInt7 + randomInt8;
+            dOtvet = randomInt7 / randomInt8;
 
             Timer timer = new Timer();
             timer.Interval = 1000;
             timer.Start();
             timer.Tick += Timer_Tick;
 
-            if (k == 0)
-            {
-                Controls.Remove(LeftLabel4);
-                Controls.Remove(RightLabel4);
-                Controls.Remove(num4);
-                Controls.Remove(ravno4);
-                Controls.Remove(dl);
-
-                Controls.Remove(LeftLabel3);
-                Controls.Remove(RightLabel3);
-                Controls.Remove(num3);
-                Controls.Remove(ravno3);
-                Controls.Remove(mno);
-
-                Controls.Remove(minusLeftLabel);
-                Controls.Remove(minusRightLabel);
-                Controls.Remove(minus);
-                Controls.Remove(ravno2);
-                Controls.Remove(num2);
-
-                Controls.Remove(plus);
-                Controls.Remove(ravno);
-                Controls.Remove(plusRightLabel);
-                Controls.Add(plusLeftLabel);
-
-                Controls.Remove(start);
-                Controls.Remove(num);
-                Controls.Remove(lbll);
-                Controls.Remove(lbl);
-            }
-
 
         }
-        Label lblprav, lbllev;
+        Label lblprav, lbllev, endMessage;
+
+        int prav, lev;
         public void Timer_Tick(object sender, EventArgs e)
         {
             lbll.Text = "" + k;
             k--;
-            
+
+            if (k == 0)
+            {
+                Timer timer = (Timer)sender;
+                timer.Stop();
+
+                Controls.Clear();
+
+                if (num.Value == plusOtvet)
+                {
+                    prav++;
+                }
+                else 
+                {
+                    lev++;
+                }
+
+                if (num2.Value == minusOtvet)
+                {
+                    prav++;
+                }
+                else
+                {
+                    lev++;
+                }
+
+                if (num3.Value == xOtvet)
+                {
+                    prav++;
+                }
+                else
+                {
+                    lev++;
+                }
+
+                if (num4.Value == dOtvet)
+                {
+                    prav++;
+                }
+                else 
+                {
+                    lev++;
+                }
+
+                lblprav = new Label();
+                lblprav.Text = "õiged vastused - "+ prav;
+                lblprav.Font = new Font("Arial", 24);
+                lblprav.Size = new Size(250, 80);
+                lblprav.Location = new Point(150, 150);
+
+                lbllev = new Label();
+                lbllev.Text = "Valed vastused - "+ lev;
+                lbllev.Font = new Font("Arial", 24);
+                lbllev.Size = new Size(250, 80);
+                lbllev.Location = new Point(150, 300);
+
+                endMessage = new Label();
+                endMessage.Text = "Aeg on läbi!";
+                endMessage.Font = new Font("Arial", 24);
+                endMessage.Size = new Size(250, 80);
+                endMessage.Location = new Point(250, 0);
+
+                Controls.Add(endMessage);
+                Controls.Add(lblprav);
+                Controls.Add(lbllev);
+            }
         }
     }
 }

@@ -254,7 +254,7 @@ namespace Csharp_Forms
 
         private void Btn1_Click(object sender, EventArgs e)
         {
-            TeineVorm teineVorm = new TeineVorm(500, 500);
+            TeineVorm teineVorm = new TeineVorm(550, 550);
             teineVorm.Show();
         }
 
