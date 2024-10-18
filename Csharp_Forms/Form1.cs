@@ -242,7 +242,7 @@ namespace Csharp_Forms
 
         private void Btn3_Click(object sender, EventArgs e)
         {
-            NeljasVorm neljasVorm = new NeljasVorm(500, 500);
+            NeljasVorm neljasVorm = new NeljasVorm(600, 600);
             neljasVorm.Show();
         }
 

@@ -30,24 +30,45 @@ namespace Csharp_Forms
                 tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             }
 
-            for (int row = 0; row < 4; row++)
-            {
-                for (int col = 0; col < 8; col++)
-                {
-                    string[] pildid = { "sf.png", "kaneki.jpg", "bara.png","grom.jpg","sirok.jpg","kot.jpeg", "metal.jpg", "ivan.jpg"};
-                    string fail = pildid[col];
 
-                    PictureBox label = new PictureBox();
-                    label.Dock = DockStyle.Fill;
-                    label.BackColor = Color.CornflowerBlue;
-                    label.Image = Image.FromFile(@"..\..\" + fail);
-                    label.SizeMode = PictureBoxSizeMode.Zoom;
-                    tableLayoutPanel.Controls.Add(label, col, row);
+            List<string> pildid = new List<string> { "sf.png", "kaneki.jpg", "bara.png","grom.jpg","sirok.jpg","kot.jpeg", "metal.jpg", "ivan.jpg", "sf.png", "kaneki.jpg", "bara.png", "grom.jpg", "sirok.jpg", "kot.jpeg", "metal.jpg", "ivan.jpg" };
+
+            PictureBox pbox1, pbox2, pbox3, pbox4, pbox5, pbox6, pbox7, pbox8, pbox9, pbox10, pbox11, pbox12, pbox13, pbox14, pbox15, pbox16;
+            PictureBox[] pboxes = new PictureBox[16];
+
+            Random random = new Random();
+            int x = 0;
+            int y = 0;
+
+            for (int i = 0; i < pboxes.Length; i++)
+            {
+                pboxes[i] = new PictureBox();
+                pboxes[i].Name = "pbox" + (i + 1);
+                pboxes[i].Location = new Point(x, y);
+                pboxes[i].Size = new Size(140, 140);
+                pboxes[i].SizeMode = PictureBoxSizeMode.StretchImage;
+
+                int randomNumber = random.Next(0,pildid.Count);
+                pboxes[i].Image = Image.FromFile(@"..\..\" + pildid[randomNumber]);
+                pildid.RemoveAt(randomNumber);
+
+                x += 150;
+                if (i == 3 || i == 7 || i == 11)
+                {
+                    x = 0; y += 150;
                 }
+
+                Controls.Add(pboxes[i]);
+
             }
 
             this.Controls.Add(tableLayoutPanel);
-
         }
     }
 }
+
+
+
+
+
+    //label.Image = Image.FromFile(@"..\..\" + fail);
