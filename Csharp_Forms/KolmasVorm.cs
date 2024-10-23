@@ -18,7 +18,7 @@ namespace Csharp_Forms
 
         Label lbl, plusLeftLabel, plusRightLabel, plus, ravno, minusLeftLabel, minusRightLabel, minus, ravno2, LeftLabel3, RightLabel3, mno, ravno3, LeftLabel4, RightLabel4, dl, ravno4, lbll;
         NumericUpDown num, num2, num3, num4;
-        Button start;
+        Button start, restart, btn3;
         Random random = new Random();
         Timer timer;
 
@@ -101,6 +101,14 @@ namespace Csharp_Forms
             ravno3.Size = new Size(80, 80);
             ravno3.Location = new Point(350, 300);
 
+            btn3 = new Button();
+            btn3.Text = "Set the background color";
+            btn3.Height = 30;
+            btn3.Width = 150;
+            btn3.BackColor = Color.LightBlue;
+            btn3.Location = new Point(350, 510);
+            btn3.Click += Btn3_Click;
+
             lbl = new Label();
             lbl.Text = "Time left";
             lbl.Font = new Font("Arial", 24);
@@ -140,6 +148,14 @@ namespace Csharp_Forms
             start.BackColor = Color.LightGreen;
             start.Location = new Point(250, 510);
             start.Click += start_Click;
+
+            restart = new Button();
+            restart.Text = "Restart";
+            restart.Height = 30;
+            restart.Width = 70;
+            restart.BackColor = Color.Red;
+            restart.Location = new Point(150, 510);
+            restart.Click += restart_Click;
 
             LeftLabel4 = new Label();
             LeftLabel4.Text = "?";
@@ -192,12 +208,52 @@ namespace Csharp_Forms
             Controls.Add(plusRightLabel);
             Controls.Add(plusLeftLabel);
 
+            Controls.Add(btn3);
             Controls.Add(start);
+            Controls.Add(restart);
             Controls.Add(num);
             Controls.Add(lbll);
             Controls.Add(lbl);
         }
-        int k = 60;
+        int t = 0;
+        private void Btn3_Click(object sender, EventArgs e)
+        {
+            t++;
+            if (t == 9)
+            { t = 1; }
+            else if (t == 1)
+            { this.BackColor = Color.Gray; }
+            else if (t == 2)
+            { this.BackColor = Color.Green; }
+            else if (t == 3)
+            { this.BackColor = Color.Yellow; }
+            else if (t == 4)
+            { this.BackColor = Color.Blue; }
+            else if (t == 5)
+            { this.BackColor = Color.Chocolate; }
+            else if (t == 6)
+            { this.BackColor = Color.Red; }
+            else if (t == 7)
+            { this.BackColor = Color.Purple; }
+            else if (t == 8)
+            { this.BackColor = Color.White; }
+        }
+
+        private void restart_Click(object sender, EventArgs e)
+        {
+            prav = 0;
+            lev = 0;
+            k = 30;
+
+            num.Value = 0;
+            num2.Value = 0;
+            num3.Value = 0;
+            num4.Value = 0;
+
+            start_Click(sender, e);
+        }
+
+        int k = 30;
         int plusOtvet, minusOtvet, xOtvet, dOtvet;
         public void start_Click(object sender, EventArgs e)
         {

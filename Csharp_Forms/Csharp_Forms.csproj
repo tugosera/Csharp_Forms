@@ -97,6 +97,7 @@
   <ItemGroup>
     <Content Include="bara.png" />
     <Content Include="grom.jpg" />
+    <Content Include="images.txt" />
     <Content Include="ivan.jpg" />
     <Content Include="kaneki.jpg" />
     <Content Include="kot.jpeg" />

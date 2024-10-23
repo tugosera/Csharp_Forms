@@ -17,25 +17,24 @@ namespace Csharp_Forms
         PictureBox secondClicked = null; 
         Timer hideTimer = new Timer();
         Timer gameTimer = new Timer(); 
-        Label timeLabel; 
+        Label timeLabel;
         int Time = 0;
 
         public NeljasVorm(int w, int h)
         {
-            this.Text = "Игра Память";
+            this.Text = "Neljas vorm";
             this.Height = h + 200;
             this.Width = w;
             this.BackColor = Color.CornflowerBlue;
 
-            timeLabel = new Label
-            {
-                Text = "Время: 0 сек.",
-                Dock = DockStyle.Top,
-                Font = new Font("Arial", 24, FontStyle.Bold),
-                Height = 50,
-                TextAlign = ContentAlignment.MiddleCenter
-            };
+            timeLabel = new Label();
+            timeLabel.Text = "Time: 0 sec.";
+            timeLabel.Dock = DockStyle.Top;
+            timeLabel.Font = new Font("Arial", 24, FontStyle.Bold);
+            timeLabel.Height = 50;
+            timeLabel.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(timeLabel);
+
 
             TableLayoutPanel tableLayoutPanel = new TableLayoutPanel
             {
@@ -86,10 +85,15 @@ namespace Csharp_Forms
             gameTimer.Start();
         }
 
+        private void Btn3_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             Time++;
-            timeLabel.Text = $"Время: {Time} сек."; 
+            timeLabel.Text = $"Time: {Time} sec"; 
         }
 
         int a = 0 ;

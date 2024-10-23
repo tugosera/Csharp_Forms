@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,33 @@ namespace Csharp_Forms
     {
         CheckBox chk1;
         PictureBox pb1;
-        Button btn1, btn2, btn3, btn4, btn5;
+        Button btn1, btn2, btn3, btn4, btn5, btn6;
 
         public TeineVorm(int w, int h)
         {
             this.Text = "Teine vorm";
             this.Height = h;
             this.Width = w;
+
+            if (File.Exists("images.txt"))
+            {
+                string[] savedImages = File.ReadAllLines("images.txt");
+                foreach (string imagePath in savedImages)
+                {
+                    pildid.Add(imagePath);
+                }
+            }
+
+            pildid.Clear();
+            using (StreamReader sr = new StreamReader(path))
+            {
+                string a;
+                while ((a = sr.ReadLine()) != null)
+                {
+                    pildid.Add(a);
+                }
+            }
+
             chk1 = new CheckBox();
             chk1.Checked = false;
             chk1.Text = "Strech";
@@ -62,11 +83,18 @@ namespace Csharp_Forms
             btn4.Click += Btn4_Click;
 
             btn5 = new Button();
-            btn5.Text = "Change picture";
+            btn5.Text = "Next picture";
             btn5.Height = 20;
             btn5.Width = 100;
             btn5.Location = new Point(200, 430);
             btn5.Click += Btn5_Click;
+
+            btn6 = new Button();
+            btn6.Text = "Load new picture";
+            btn6.Height = 20;
+            btn6.Width = 120;
+            btn6.Location = new Point(310, 430);
+            btn6.Click += Btn6_Click;
 
             Controls.Add(chk1);
             Controls.Add(btn1);
@@ -74,15 +102,36 @@ namespace Csharp_Forms
             Controls.Add(btn3);
             Controls.Add(btn4);
             Controls.Add(btn5);
+            Controls.Add(btn6);
         }
-        int tt = 0;
-        private void Btn5_Click(object sender, EventArgs e)
+
+
+        private void Btn6_Click(object sender, EventArgs e)
         {
-            string[] pildid = { "sf.png", "kaneki.jpg", "bara.png", "grom.jpg" };
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                pildid.Add(openFileDialog.FileName);
+
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    sw.WriteLine(openFileDialog.FileName);
+                }
+            }
+        }
+        string path = @"C:\Users\opilane.TTHK\source\repos\mobile1\Csharp_Forms\Csharp_Forms\images.txt";
+        int tt = 0;
+        List<string> pildid = new List<string> { };
+        public void Btn5_Click(object sender, EventArgs e)
+        {
+
+            
             string fail = pildid[tt];
-            pb1.Image = Image.FromFile(@"..\..\" + fail);
+            pb1.Image = Image.FromFile(fail);
             tt++;
-            if (tt == 4) { tt = 0; }
+            if (tt == pildid.Count) { tt = 0; }
         }
 
         private void Btn4_Click(object sender, EventArgs e)
