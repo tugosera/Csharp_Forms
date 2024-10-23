@@ -2,3 +2,4 @@
 C:\\Users\\opilane.TTHK\\source\\repos\\mobile1\\Csharp_Forms\\Csharp_Forms\\kaneki.jpg	
 C:\\Users\\opilane.TTHK\\source\\repos\\mobile1\\Csharp_Forms\\Csharp_Forms\\bara.png
 C:\\Users\\opilane.TTHK\\source\\repos\\mobile1\\Csharp_Forms\\Csharp_Forms\\grom.jpg
+C:\Users\opilane.TTHK\Desktop\images.jpg
