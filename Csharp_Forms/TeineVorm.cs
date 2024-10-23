@@ -134,6 +134,7 @@ namespace Csharp_Forms
             if (tt == pildid.Count) { tt = 0; }
         }
 
+
         private void Btn4_Click(object sender, EventArgs e)
         {
             Close();
