@@ -121,7 +121,7 @@ namespace Csharp_Forms
                 }
             }
         }
-        string path = @"C:\Users\opilane.TTHK\source\repos\mobile1\Csharp_Forms\Csharp_Forms\images.txt";
+        string path = @"C:\Users\slava\Source\Repos\Csharp_Forms\Csharp_Forms\images.txt";
         int tt = 0;
         List<string> pildid = new List<string> { };
         public void Btn5_Click(object sender, EventArgs e)

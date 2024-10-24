@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,15 @@ namespace Csharp_Forms
     {
         List<string> pildid;
         PictureBox firstClicked = null;
-        PictureBox secondClicked = null; 
+        PictureBox secondClicked = null;
         Timer hideTimer = new Timer();
-        Timer gameTimer = new Timer(); 
-        Label timeLabel;
+        Timer gameTimer = new Timer();
+        Label timeLabel, start, names, lblll;
+        TextBox txt = new TextBox();
+        Button btn = new Button();
         int Time = 0;
+        string pathName = @"C:\Users\slava\Source\Repos\Csharp_Forms\Csharp_Forms\name.txt";
+        string pathResult = @"C:\Users\slava\Source\Repos\Csharp_Forms\Csharp_Forms\result.txt";
 
         public NeljasVorm(int w, int h)
         {
@@ -27,6 +32,43 @@ namespace Csharp_Forms
             this.Width = w;
             this.BackColor = Color.CornflowerBlue;
 
+
+
+            start = new Label();
+            start.Text = "Pildid Mäng";
+            start.Size = new Size(300, 50);
+            start.Location = new Point(200, 100);
+            start.Font = new Font("Arial", 24, FontStyle.Bold);
+
+            txt = new TextBox();
+            txt.Size = new Size(300, 200);
+            txt.Location = new Point(200, 400);
+
+            names = new Label();
+            names.Text = "Sisesta oma nimi";
+            names.Size = new Size(300, 50);
+            names.Location = new Point(200, 350);
+            names.Font = new Font("Arial", 24, FontStyle.Bold);
+
+            btn = new Button();
+            btn.Text = "Start";
+            btn.Size = new Size(300, 100);
+            btn.Location = new Point(200, 500);
+            btn.Font = new Font("Arial", 24, FontStyle.Bold);
+            btn.Click += btn_Click;
+
+
+            Controls.Add(names);
+            Controls.Add(txt);
+            Controls.Add(start);
+            Controls.Add(btn);
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+
+            Controls.Clear();
+
             timeLabel = new Label();
             timeLabel.Text = "Time: 0 sec.";
             timeLabel.Dock = DockStyle.Top;
@@ -34,7 +76,6 @@ namespace Csharp_Forms
             timeLabel.Height = 50;
             timeLabel.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(timeLabel);
-
 
             TableLayoutPanel tableLayoutPanel = new TableLayoutPanel
             {
@@ -51,11 +92,11 @@ namespace Csharp_Forms
             }
 
             pildid = new List<string>
-            {
-                "sf.png", "kaneki.jpg", "bara.png", "grom.jpg", "sirok.jpg", "kot.jpeg",
-                "metal.jpg", "ivan.jpg", "sf.png", "kaneki.jpg", "bara.png", "grom.jpg",
-                "sirok.jpg", "kot.jpeg", "metal.jpg", "ivan.jpg"
-            };
+                        {
+                            "sf.png", "kaneki.jpg", "bara.png", "grom.jpg", "sirok.jpg", "kot.jpeg",
+                            "metal.jpg", "ivan.jpg", "sf.png", "kaneki.jpg", "bara.png", "grom.jpg",
+                            "sirok.jpg", "kot.jpeg", "metal.jpg", "ivan.jpg"
+                        };
 
             Random random = new Random();
             pildid = pildid.OrderBy(x => random.Next()).ToList();
@@ -93,10 +134,10 @@ namespace Csharp_Forms
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             Time++;
-            timeLabel.Text = $"Time: {Time} sec"; 
+            timeLabel.Text = $"Time: {Time} sec";
         }
 
-        int a = 0 ;
+        int a = 0;
         private void PictureBox_Click(object sender, EventArgs e)
         {
             if (hideTimer.Enabled || secondClicked != null)
@@ -136,20 +177,64 @@ namespace Csharp_Forms
 
                 Controls.Clear();
 
+                using (StreamWriter sw = new StreamWriter(pathResult, true))
+                {
+                    sw.WriteLine(Time);
+                }
+
+                using (StreamWriter sw = new StreamWriter(pathName, true))
+                {
+                    sw.WriteLine(txt.Text + " - " + Time);
+                }
+
+                int minNumber = 1000;
+                int minIndex = 0;
+ 
+                string[] results = File.ReadAllLines(pathResult);
+                int[] intArray = new int[results.Length];
+
+                for (int y = 0; y < results.Length; y++)
+                {
+                    intArray[y] = int.Parse(results[y]);
+                }
+
+                for (int i = 0; i < intArray.Length; i++)
+                {
+                    if (intArray[i] < minNumber)
+                    {
+                        minNumber = intArray[i];
+                        minIndex = i;
+                    }
+                }
+
+                
+                string[] names = File.ReadAllLines(pathName);
+
+
                 Label lbl = new Label();
-                lbl.Text = "oled mängu läbi teinud";
+                lbl.Text = "oled mängu läbi teinud"; ///////////////////////////////////
                 lbl.Font = new Font("Arial", 24);
                 lbl.Size = new Size(600, 50);
                 lbl.Location = new Point(100, 300);
 
                 Label lbll = new Label();
-                lbll.Text = "sinu tulemus - "+ Time;
+                lbll.Text = "Sinu tulemus - " + Time;
                 lbll.Font = new Font("Arial", 24);
                 lbll.Size = new Size(600, 50);
-                lbll.Location = new Point(150, 350);
+                lbll.Location = new Point(150, 450);
+
+                Label lblll = new Label();
+                lblll.Text = "luchshiy igrok eto " + names[minIndex];
+                lblll.Font = new Font("Arial", 24);
+                lblll.Size = new Size(600, 50);
+                lblll.Location = new Point(150, 350);
+
+
 
                 Controls.Add(lbl);
                 Controls.Add(lbll);
+                Controls.Add(lblll);
+                
             }
         }
 
@@ -167,6 +252,7 @@ namespace Csharp_Forms
         }
     }
 }
+
 
 
 

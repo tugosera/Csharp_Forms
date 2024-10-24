@@ -103,6 +103,8 @@
     <Content Include="kot.jpeg" />
     <Content Include="menu.xml" />
     <Content Include="metal.jpg" />
+    <Content Include="name.txt" />
+    <Content Include="result.txt" />
     <Content Include="sf.png" />
     <Content Include="sirok.jpg" />
   </ItemGroup>
