@@ -22,8 +22,8 @@ namespace Csharp_Forms
         TextBox txt = new TextBox();
         Button btn = new Button();
         int Time = 0;
-        string pathName = @"C:\Users\slava\Source\Repos\Csharp_Forms\Csharp_Forms\name.txt";
-        string pathResult = @"C:\Users\slava\Source\Repos\Csharp_Forms\Csharp_Forms\result.txt";
+        string pathName = @"C:\Users\opilane.TTHK\source\repos\mobile1\Csharp_Forms\Csharp_Forms\name.txt";
+        string pathResult = @"C:\Users\opilane.TTHK\source\repos\mobile1\Csharp_Forms\Csharp_Forms\result.txt";
 
         public NeljasVorm(int w, int h)
         {
@@ -206,8 +206,8 @@ namespace Csharp_Forms
                         minIndex = i;
                     }
                 }
+                //System.FormatException: 'Input string was not in a correct format.'
 
-                
                 string[] names = File.ReadAllLines(pathName);
 
 
@@ -224,10 +224,10 @@ namespace Csharp_Forms
                 lbll.Location = new Point(150, 450);
 
                 Label lblll = new Label();
-                lblll.Text = "luchshiy igrok eto " + names[minIndex];
+                lblll.Text = "parim mängija on " + names[minIndex];
                 lblll.Font = new Font("Arial", 24);
-                lblll.Size = new Size(600, 50);
-                lblll.Location = new Point(150, 350);
+                lblll.Size = new Size(700, 50);
+                lblll.Location = new Point(50, 350);
 
 
 
